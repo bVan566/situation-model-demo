@@ -2,13 +2,15 @@
 
 A working implementation of the [AI Operations Situation Model](https://github.com/bVan566/ai-operations-situation-model). Operational events are classified into `NOW`, `NEXT`, `WAITING`, `DECISIONS` or `WATCHING`. Each item gets an owner, an authority level and a terminal condition. Deterministic code decides whether an action may run, executes it against an external service, and reconciles when the two systems disagree. A Failure Lab in the UI lets you break it on purpose.
 
+**No API key is needed.** The app, tests, evaluations and Failure Lab all run on the deterministic rules classifier. Claude-assisted classification is an optional add-on that switches on when you supply your own key.
+
 ## The problem
 
 Knowing that something should happen is not permission to make it happen. An urgent refund belongs in `NOW` and still needs a human's approval. And when an external action succeeds, the tracker may never hear about it. If the tracker still says "pending", someone retries and the customer gets refunded twice.
 
 ## What it does
 
-- Takes a free-text operational event and classifies it (rules by default, Claude optionally)
+- Takes a free-text operational event and classifies it (deterministic rules by default; Claude is optional)
 - Assigns authority from a fixed action policy: `autonomous`, `approval_required` or `human_only`
 - Blocks gated actions until a human approves that specific item. Never executes human-only actions.
 - Executes approved actions against a simulated dispatch service with its own database, and closes items only on a verified result
@@ -42,7 +44,7 @@ flowchart LR
 
 The model is called in exactly one place (`Engine.intake`). A test enumerates every possible classifier output (5 states × 9 action types) and checks that no gated action ever reaches the dispatch service without approval.
 
-**Without an API key**, or when Claude errors, refuses, or returns malformed or invalid output, intake falls back to the rules classifier, and each item records which classifier produced it. All controls, the Failure Lab, tests and evaluations work unchanged. What degrades is interpretation: the rules scored 72.5% on held-out events, they miss unfamiliar wording, and summaries are the event's first sentence.
+**The default is no API key.** Intake uses the rules classifier. When Claude is enabled but errors, refuses, or returns malformed or invalid output, intake falls back to the same rules, and each item records which classifier produced it. The controls never depend on which classifier ran. What Claude would add is better interpretation of wording the rules don't know. The rules scored 72.5% on held-out events; Claude has not been measured on them.
 
 ## Run it
 
@@ -55,7 +57,9 @@ npm install
 npm start            # http://localhost:3000
 ```
 
-Optional Claude classifier: `cp .env.example .env` and set `ANTHROPIC_API_KEY`. The model defaults to `claude-opus-5-5` at low effort; override it with `SITUATION_MODEL_LLM`. Then choose "Claude" in the classifier dropdown.
+That's all you need. Everything in this README works without a key.
+
+**Optional: Claude-assisted classification.** Uses your own paid Anthropic API key. Run `cp .env.example .env`, set `ANTHROPIC_API_KEY`, restart, then choose "Claude" in the classifier dropdown. The model defaults to `claude-opus-5-5` at low effort (override it with `SITUATION_MODEL_LLM`). Without a key that option is disabled, and an invalid key falls back to rules.
 
 Data persists in `data/` (created on first run; change it with `SITUATION_DATA_DIR`). **Reset data** in the UI clears it. `PORT` and `HOST` (default `127.0.0.1`) can also be set in `.env`. For a terminal-only walkthrough, run `npm run demo`.
 
@@ -94,7 +98,9 @@ The tests cover:
 
 Exact definitions and limits are in [`eval/README.md`](eval/README.md). Raw results are in [`eval/results/`](eval/results/).
 
-**Classification** (`npm run eval`): 40 hand-written, labeled held-out events, written after the rules were frozen and run once. The rules classifier scored **29/40 (72.5%)** on state and 29/40 on action type. In 5 cases an action needing approval went unrecognized. It became a non-executable `none`, so the error was misrouting, not an unauthorized action. On the 30 dev cases used to write the rules it scores 100%, which is in-sample and not meaningful. The Claude classifier is **not yet measured**. Run it with `npm run eval -- --classifier llm`.
+**Classification** (`npm run eval`): 40 hand-written, labeled held-out events, written after the rules were frozen and run once. The rules classifier scored **29/40 (72.5%)** on state and 29/40 on action type. In 5 cases an action needing approval went unrecognized. It became a non-executable `none`, so the error was misrouting, not an unauthorized action. On the 30 dev cases used to write the rules it scores 100%, which is in-sample and not meaningful.
+
+**The Claude classifier has no published result.** One attempted run failed with an invalid key: every call returned 401, and no model output was produced. That run is kept in `eval/results/` for transparency, marked as aborted. It is not a performance result. With your own key you can run the pre-registered protocol in [`eval/README.md`](eval/README.md) with `npm run eval -- --classifier llm`.
 
 **Control path** (`npm run eval:scenarios`): seeded, generated workloads of **1,000 items on each of 3 seeds** (1, 7, 123). They mix all authority levels with injected failures, timeouts, crashes after success, early execute attempts and double clicks. An item fails on any of:
 - a side effect that wasn't authorized

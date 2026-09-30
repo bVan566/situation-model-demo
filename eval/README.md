@@ -15,6 +15,10 @@ Two separate evaluations, for two separate components. Results are written to [`
 
 **Rules classifier, held-out set:** state accuracy 29/40 (72.5%), action type accuracy 29/40 (72.5%), 5 cases where an action that needs approval or a human was not recognized (read as `none`). An item whose action is `none` has no external action, so it cannot execute. The cost of that miss is routing (the item sits in `NOW` instead of `DECISIONS`), not an unauthorized action. Full confusion matrix and every miss: [`results/classification-holdout-rules.md`](results/classification-holdout-rules.md).
 
+### Claude classifier (optional, not measured)
+
+The released project needs no paid API key, and **no Claude performance result is published.** The only attempted run failed on authentication (see the run log) and measured nothing. The protocol below stays in place for anyone who wants to evaluate Claude with their own key.
+
 ### Claude classifier protocol
 
 This protocol was fixed and committed before the first API call:
