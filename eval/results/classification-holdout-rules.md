@@ -1,6 +1,6 @@
 # Classification eval: set=holdout, classifier=rules
 
-Cases: 40
+Dataset: cases.holdout.json, 40 cases, sha256 prefix `9d54dfe4d979c881`
 
 | Metric | Result |
 | --- | --- |

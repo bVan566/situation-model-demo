@@ -15,7 +15,20 @@ Two separate evaluations, for two separate components. Results are written to [`
 
 **Rules classifier, held-out set:** state accuracy 29/40 (72.5%), action type accuracy 29/40 (72.5%), 5 cases where an action that needs approval or a human was not recognized (read as `none`). An item whose action is `none` has no external action, so it cannot execute. The cost of that miss is routing (the item sits in `NOW` instead of `DECISIONS`), not an unauthorized action. Full confusion matrix and every miss: [`results/classification-holdout-rules.md`](results/classification-holdout-rules.md).
 
-**Claude classifier: not yet measured.** Run `npm run eval -- --classifier llm` with `ANTHROPIC_API_KEY` set. The script reports how many cases fell back to rules.
+### Claude classifier protocol
+
+This protocol was fixed and committed before the first API call:
+
+- **Dataset:** the same 40 held-out cases (`cases.holdout.json`, sha256 prefix `9d54dfe4d979c881`, recorded in the result file). The dev set is not used, so there are no extra calls and no second number to choose from.
+- **Configuration:** the app's defaults. Model `claude-opus-5-5`, effort `low`, JSON-schema structured output, the prompt in `src/classifier/llm.ts`, 20 s timeout, 1 SDK retry. No prompt changes made for or after the evaluation.
+- **Scoring:** the same scorer and labels as the rules classifier, through the full intake path (model output, then local validation, then deterministic policy). A case that falls back to rules is scored as the app actually behaved, and every fallback is counted with its reason.
+- **Single run:** 40 API calls, one run. The script refuses to overwrite an existing LLM result without `--force`. The result is reported whatever it is, and not rerun for a better number. If the run fails partway for an infrastructure reason (for example an invalid key), it is repeated once and the failure is noted here.
+- **Recorded:** the run timestamp, model, SDK and Node versions, fallbacks by reason, latency, and every per-case output with the model's rationale (`results/classification-holdout-llm.json`).
+- **Limitations stated up front:**
+  - one run of a non-deterministic model
+  - 40 cases written by the same author who wrote the rules and labels
+  - the labels reflect one person's judgment
+  - model versions change over time
 
 **Does not show:** accuracy on real operational traffic. Both sets were written by the same author, and 40 cases is a small sample.
 

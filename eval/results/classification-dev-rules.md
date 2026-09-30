@@ -1,6 +1,6 @@
 # Classification eval: set=dev, classifier=rules
 
-Cases: 30
+Dataset: cases.dev.json, 30 cases, sha256 prefix `295158004b11fffe`
 
 | Metric | Result |
 | --- | --- |
