@@ -24,6 +24,8 @@ This protocol was fixed and committed before the first API call:
 - **Scoring:** the same scorer and labels as the rules classifier, through the full intake path (model output, then local validation, then deterministic policy). A case that falls back to rules is scored as the app actually behaved, and every fallback is counted with its reason.
 - **Single run:** 40 API calls, one run. The script refuses to overwrite an existing LLM result without `--force`. The result is reported whatever it is, and not rerun for a better number. If the run fails partway for an infrastructure reason (for example an invalid key), it is repeated once and the failure is noted here.
 - **Recorded:** the run timestamp, model, SDK and Node versions, fallbacks by reason, latency, and every per-case output with the model's rationale (`results/classification-holdout-llm.json`).
+- **Run log:**
+  - Run 1 (2026-09-30T06:08:56Z) was aborted by infrastructure. All 40 calls returned `401 authentication_error: API key is invalid`, so every case fell back to rules and no model output was produced. It is kept as `results/classification-holdout-llm.run1-aborted-401.*` and is not a Claude result. After this run, the script was changed to mark a run invalid, not score it, when every case fails at the API level. Scoring of valid runs is unchanged.
 - **Limitations stated up front:**
   - one run of a non-deterministic model
   - 40 cases written by the same author who wrote the rules and labels

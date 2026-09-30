@@ -55,6 +55,12 @@ for (const c of cases) {
   });
 }
 
+if (classifier === 'llm' && rows.every((r) => /LLM fallback, api_error:/.test(r.rationale))) {
+  console.error('INVALID RUN: every case failed at the API level, so no model output was measured. Nothing written.');
+  console.error(`First error: ${/LLM fallback, (.*)\)$/.exec(rows[0].rationale)?.[1] ?? 'unknown'}`);
+  process.exit(1);
+}
+
 const pct = (n: number, d: number) => (d === 0 ? 'n/a' : `${((100 * n) / d).toFixed(1)}%`);
 const stateHits = rows.filter((r) => r.state === r.c.expected_state).length;
 const actionHits = rows.filter((r) => r.action === r.c.expected_action).length;

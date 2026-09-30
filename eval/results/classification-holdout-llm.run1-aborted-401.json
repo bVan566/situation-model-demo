@@ -1,0 +1,402 @@
+[
+  {
+    "id": "ho-01",
+    "expected": "NOW/send_customer_reply",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Client emailed: can you resend the onboarding checklist?",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 1349
+  },
+  {
+    "id": "ho-02",
+    "expected": "NEXT/schedule_followup",
+    "got": "NEXT/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Remember to ping Contoso about the pilot results on Thursday.",
+    "rationale": "future trigger \"on thursday\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 287
+  },
+  {
+    "id": "ho-03",
+    "expected": "WAITING/none",
+    "got": "NOW/send_customer_reply",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Still no answer from the supplier on the revised delivery date.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> send_customer_reply (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 112
+  },
+  {
+    "id": "ho-04",
+    "expected": "DECISIONS/change_commercial_terms",
+    "got": "DECISIONS/change_commercial_terms",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Enterprise customer wants us to cap their annual price increase at 3% in the renewal.",
+    "rationale": "action \"change_commercial_terms\" is human-only; action cue -> change_commercial_terms (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 120
+  },
+  {
+    "id": "ho-05",
+    "expected": "WATCHING/none",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "CDN cache hit ratio dropped slightly overnight; page loads look normal.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 129
+  },
+  {
+    "id": "ho-06",
+    "expected": "NOW/issue_refund",
+    "got": "NOW/issue_refund",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Subscription was billed after the customer cancelled last week.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> issue_refund (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 126
+  },
+  {
+    "id": "ho-07",
+    "expected": "NOW/restart_service",
+    "got": "NOW/restart_service",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Login API is returning 500s for every request; customers cannot sign in.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> restart_service (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 140
+  },
+  {
+    "id": "ho-08",
+    "expected": "DECISIONS/grant_access",
+    "got": "DECISIONS/grant_access",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Marketing asks that we give the agency editor permissions on the corporate social accounts.",
+    "rationale": "action \"grant_access\" is human-only; action cue -> grant_access (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 140
+  },
+  {
+    "id": "ho-09",
+    "expected": "NOW/publish_announcement",
+    "got": "NOW/publish_announcement",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "The partnership announcement is drafted and ready to go out on the website.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> publish_announcement (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 115
+  },
+  {
+    "id": "ho-10",
+    "expected": "WAITING/none",
+    "got": "WAITING/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Can't start the data import until the customer sends us the CSV export.",
+    "rationale": "external dependency cue \"until the customer sends\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 160
+  },
+  {
+    "id": "ho-11",
+    "expected": "WATCHING/none",
+    "got": "WATCHING/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Queue depth on the order worker has been creeping up for two days but orders are processing on time.",
+    "rationale": "monitoring cue \"creeping\" with no urgency cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 130
+  },
+  {
+    "id": "ho-12",
+    "expected": "NEXT/schedule_followup",
+    "got": "NEXT/schedule_followup",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Set up a check-in with the Hooli champion in two weeks to see if adoption improved.",
+    "rationale": "future trigger \"in two weeks\"; action cue -> schedule_followup (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 176
+  },
+  {
+    "id": "ho-13",
+    "expected": "NOW/send_customer_reply",
+    "got": "NOW/send_customer_reply",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "User asks whether we support SSO with Okta.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> send_customer_reply (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 133
+  },
+  {
+    "id": "ho-14",
+    "expected": "DECISIONS/change_commercial_terms",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Prospect will sign today if we extend the free trial by 60 days and drop the setup fee.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 136
+  },
+  {
+    "id": "ho-15",
+    "expected": "WAITING/none",
+    "got": "WAITING/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Awaiting the security questionnaire from the customer's procurement team.",
+    "rationale": "external dependency cue \"awaiting\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 129
+  },
+  {
+    "id": "ho-16",
+    "expected": "NOW/send_status_update",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Let the customer know the bug fix for their export issue has been deployed.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 132
+  },
+  {
+    "id": "ho-17",
+    "expected": "DECISIONS/issue_refund",
+    "got": "DECISIONS/issue_refund",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Long-time customer asks for a refund on a non-refundable annual plan.",
+    "rationale": "decision cue \"judgment call\"; action cue -> issue_refund (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 162
+  },
+  {
+    "id": "ho-18",
+    "expected": "WATCHING/none",
+    "got": "WATCHING/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "A few users report slow search results, but response times are within SLA.",
+    "rationale": "monitoring cue \"within sla\" with no urgency cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 166
+  },
+  {
+    "id": "ho-19",
+    "expected": "NEXT/none",
+    "got": "NEXT/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Quarterly compliance attestation is due on the 15th of next month.",
+    "rationale": "future trigger \"due on\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 165
+  },
+  {
+    "id": "ho-20",
+    "expected": "NOW/send_customer_reply",
+    "got": "NOW/send_customer_reply",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "The customer responded and wants to know the status of ticket 8812.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> send_customer_reply (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 137
+  },
+  {
+    "id": "ho-21",
+    "expected": "WATCHING/none",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Memory usage on the cache cluster is higher than usual after the upgrade.",
+    "rationale": "urgency cue \"failing\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 126
+  },
+  {
+    "id": "ho-22",
+    "expected": "WAITING/none",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Integration is paused until the partner provides new API credentials.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 136
+  },
+  {
+    "id": "ho-23",
+    "expected": "NEXT/publish_announcement",
+    "got": "NEXT/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Post the holiday closure notice on the website later this month.",
+    "rationale": "future trigger \"later this month\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 170
+  },
+  {
+    "id": "ho-24",
+    "expected": "NOW/restart_service",
+    "got": "NOW/restart_service",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Background job workers are stuck and invoices are not being generated.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> restart_service (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 137
+  },
+  {
+    "id": "ho-25",
+    "expected": "DECISIONS/change_commercial_terms",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Account manager wants to offer a partner a 20% reseller margin instead of the standard 15%.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 231
+  },
+  {
+    "id": "ho-26",
+    "expected": "DECISIONS/grant_access",
+    "got": "DECISIONS/grant_access",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Support contractor asked for read access to the customer PII table.",
+    "rationale": "action \"grant_access\" is human-only; action cue -> grant_access (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 156
+  },
+  {
+    "id": "ho-27",
+    "expected": "NOW/send_status_update",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Send the executive team an update on the Q3 incident review outcomes.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 150
+  },
+  {
+    "id": "ho-28",
+    "expected": "WAITING/none",
+    "got": "DECISIONS/change_commercial_terms",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Contract renewal is pending signature from the customer's CFO.",
+    "rationale": "action \"change_commercial_terms\" is human-only; action cue -> change_commercial_terms (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 114
+  },
+  {
+    "id": "ho-29",
+    "expected": "WATCHING/none",
+    "got": "NEXT/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "SSL certificate for the docs site expires in 45 days; auto-renew is configured.",
+    "rationale": "future trigger \"in 45 days\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 159
+  },
+  {
+    "id": "ho-30",
+    "expected": "NOW/send_customer_reply",
+    "got": "NOW/send_customer_reply",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "A reseller is asking for our standard W-9 and banking letter.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> send_customer_reply (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 194
+  },
+  {
+    "id": "ho-31",
+    "expected": "NOW/issue_refund",
+    "got": "NOW/issue_refund",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Customer was overcharged for 3 extra seats last month and has asked for reimbursement.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> issue_refund (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 129
+  },
+  {
+    "id": "ho-32",
+    "expected": "NOW/restart_service",
+    "got": "NOW/restart_service",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Warehouse integration has failed for 40 minutes; orders are not shipping.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> restart_service (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 134
+  },
+  {
+    "id": "ho-33",
+    "expected": "NEXT/schedule_followup",
+    "got": "NEXT/schedule_followup",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Kick-off meeting reminder for the Umbrella project should go out the day before, next Wednesday.",
+    "rationale": "future trigger \"next wednesday\"; action cue -> schedule_followup (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 187
+  },
+  {
+    "id": "ho-34",
+    "expected": "WAITING/none",
+    "got": "WAITING/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Waiting for the bank to confirm the wire transfer before releasing the order.",
+    "rationale": "external dependency cue \"waiting for\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 138
+  },
+  {
+    "id": "ho-35",
+    "expected": "DECISIONS/grant_access",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Promote the intern to admin role in the billing system so they can run reports.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 137
+  },
+  {
+    "id": "ho-36",
+    "expected": "WATCHING/none",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "Minor uptick in failed webhook deliveries from one customer's endpoint; retries are succeeding.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 122
+  },
+  {
+    "id": "ho-37",
+    "expected": "NOW/send_customer_reply",
+    "got": "NOW/send_customer_reply",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Customer is asking for a copy of our data processing agreement.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> send_customer_reply (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 123
+  },
+  {
+    "id": "ho-38",
+    "expected": "DECISIONS/change_commercial_terms",
+    "got": "NOW/none",
+    "correct": false,
+    "classifier": "rules (llm fallback)",
+    "summary": "The customer wants to switch from monthly to annual billing mid-term with a prorated credit.",
+    "rationale": "actionable with no blocking, future or monitoring cue; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 133
+  },
+  {
+    "id": "ho-39",
+    "expected": "NOW/publish_announcement",
+    "got": "NOW/publish_announcement",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Publish the incident postmortem for last Tuesday's outage on the status blog.",
+    "rationale": "urgency cue \"outage\"; action cue -> publish_announcement (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 157
+  },
+  {
+    "id": "ho-40",
+    "expected": "NEXT/none",
+    "got": "NEXT/none",
+    "correct": true,
+    "classifier": "rules (llm fallback)",
+    "summary": "Vendor security review is scheduled for next quarter; nothing to do until then.",
+    "rationale": "future trigger \"scheduled for\"; action cue -> none (LLM fallback, api_error: 401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"API key is invalid.\"},\"request_id\":null})",
+    "ms": 124
+  }
+]
