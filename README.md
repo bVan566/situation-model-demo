@@ -49,7 +49,7 @@ The model is called in exactly one place (`Engine.intake`). A test enumerates ev
 Requires **Node.js 24.2 or later** (Node runs the TypeScript directly; no build step).
 
 ```bash
-git clone <this repo> situation-model-demo
+git clone https://github.com/bVan566/situation-model-demo.git
 cd situation-model-demo
 npm install
 npm start            # http://localhost:3000

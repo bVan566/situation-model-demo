@@ -21,7 +21,7 @@ export const SCENARIOS: Record<string, { title: string; run: (e: Engine) => Prom
       }
       return {
         item: e.get(item.id),
-        next_step: 'The dispatch service delivered the reply, but the process crashed before recording it. The item still looks in-flight in NOW. Click "Reconcile" to detect and correct the stale state.',
+        next_step: 'The dispatch service delivered the reply, but the process crashed before recording it. The item still looks in-flight in NOW. Click "Reconcile this item" to detect and correct the stale state.',
       };
     },
   },
