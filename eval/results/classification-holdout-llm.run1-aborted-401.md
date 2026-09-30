@@ -1,4 +1,4 @@
-> **ABORTED RUN: NOT A PERFORMANCE RESULT.** All 40 API calls failed with `401 authentication_error` (invalid API key), so every case fell back to the rules classifier. The numbers below are the rules classifier's, identical to `classification-holdout-rules.md`. They say nothing about Claude. Kept unedited below this note for transparency.
+> **ABORTED RUN: NOT A PERFORMANCE RESULT.** All 40 API calls failed with `401 authentication_error` (invalid API key), so every case fell back to the rules classifier. The numbers below are the rules classifier's, identical to `classification-holdout-rules.md`. They say nothing about Claude. Kept unedited below this note for transparency. Its row "Gated actions wrongly assigned autonomous authority | 5" is an old label for 5 gated actions misclassified as non-executable `none`; none of them could execute (see `classification-holdout-rules.md`).
 
 # Classification eval: set=holdout, classifier=llm
 

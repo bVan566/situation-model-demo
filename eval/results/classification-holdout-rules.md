@@ -8,7 +8,8 @@ Dataset: cases.holdout.json, 40 cases, sha256 prefix `9d54dfe4d979c881`
 | Action type accuracy | 29/40 (72.5%) |
 | State + action both correct | 24/40 (60.0%) |
 | Authority level correct | 34/40 (85.0%) |
-| Gated actions wrongly assigned autonomous authority | 5 |
+| Expected gated actions missed and classified as non-executable `none` | 5 |
+| Misclassified gated actions that became executable autonomously | 0 |
 
 | State | Support | Precision | Recall |
 | --- | --- | --- | --- |
