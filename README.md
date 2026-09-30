@@ -57,7 +57,7 @@ npm start            # http://localhost:3000
 
 Optional Claude classifier: `cp .env.example .env` and set `ANTHROPIC_API_KEY`. The model defaults to `claude-opus-5-5` at low effort; override it with `SITUATION_MODEL_LLM`. Then choose "Claude" in the classifier dropdown.
 
-Data persists in `data/` (created on first run). **Reset data** in the UI clears it. `PORT` and `HOST` (default `127.0.0.1`) can be set in `.env`. For a terminal-only walkthrough, run `npm run demo`.
+Data persists in `data/` (created on first run; change it with `SITUATION_DATA_DIR`). **Reset data** in the UI clears it. `PORT` and `HOST` (default `127.0.0.1`) can also be set in `.env`. For a terminal-only walkthrough, run `npm run demo`.
 
 ## Failure Lab
 

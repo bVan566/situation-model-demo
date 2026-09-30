@@ -121,8 +121,15 @@ function str(v: unknown): string {
 }
 
 if (import.meta.main) {
-  mkdirSync(DATA, { recursive: true });
-  const engine = new Engine(new Store(join(DATA, 'situation.db')), new DispatchService(join(DATA, 'dispatch.db')));
+  let engine: Engine;
+  try {
+    mkdirSync(DATA, { recursive: true });
+    engine = new Engine(new Store(join(DATA, 'situation.db')), new DispatchService(join(DATA, 'dispatch.db')));
+  } catch (err) {
+    console.error(`Could not open the SQLite databases in ${DATA}: ${(err as Error).message}`);
+    console.error('Set SITUATION_DATA_DIR to a writable directory (on Windows, keep the full path under 260 characters).');
+    process.exit(1);
+  }
   // Local demo with an unauthenticated reset endpoint: bind to loopback unless HOST says otherwise.
   createApp(engine).listen(PORT, process.env.HOST ?? '127.0.0.1', () => {
     console.log(`Situation Model running at http://localhost:${PORT}`);
