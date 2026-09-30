@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# local runtime state (SQLite databases)
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# secrets
+.env
+.env.*
+!.env.example
+
+# local tooling / OS
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,26 @@
+{
+  "name": "situation-model-demo",
+  "version": "1.0.0",
+  "description": "Working implementation of the AI Operations Situation Model: classification, authority gates, external actions and reconciliation.",
+  "author": "Billy VanVorst",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=24.2"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.ts",
+    "demo": "node scripts/demo.ts",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "eval": "node --env-file-if-exists=.env eval/run-classification.ts",
+    "eval:scenarios": "node eval/run-scenarios.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

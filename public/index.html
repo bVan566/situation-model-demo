@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Situation Model</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>AI Operations Situation Model</h1>
+      <p class="sub">Classification is not authority. Every event gets a state, an owner, an authority level and a terminal condition.</p>
+    </div>
+    <div id="metrics" class="metrics" aria-live="polite"></div>
+  </header>
+
+  <div id="banner" class="banner" hidden role="status"></div>
+
+  <main class="layout">
+    <aside class="panel intake">
+      <h2>1. Submit an operational event</h2>
+      <label for="example">Example events</label>
+      <select id="example">
+        <option value="">Pick an example…</option>
+      </select>
+      <label for="text">Event text</label>
+      <textarea id="text" rows="5" placeholder="e.g. Customer was charged twice for order 4417 and is requesting a refund."></textarea>
+      <label for="classifier">Classifier</label>
+      <select id="classifier">
+        <option value="rules">Rules (deterministic)</option>
+        <option value="llm">Claude (LLM, validated, falls back to rules)</option>
+      </select>
+      <button id="submit" class="primary">Classify &amp; create item</button>
+
+      <h2>Failure lab</h2>
+      <p class="hint">Each button sets up a failure case up to the moment of failure. Finish it yourself from the item panel.</p>
+      <div id="scenarios" class="scenario-buttons"></div>
+
+      <h2>System</h2>
+      <div class="row">
+        <button id="reconcile-all">Reconcile all</button>
+        <button id="reset" class="ghost">Reset data</button>
+      </div>
+      <div class="legend">
+        <p><span class="tag ai">classifier</span> proposes state + action type from text (rules or Claude).</p>
+        <p><span class="tag det">policy</span> deterministic code sets authority, owner, approval, transitions, execution and reconciliation.</p>
+      </div>
+    </aside>
+
+    <section class="board" id="board" aria-label="Situation board"></section>
+
+    <aside class="panel detail" id="detail">
+      <p class="empty">Select an item to see its authority, controls, history, and how the Situation Model compares with the external system.</p>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
