@@ -2,6 +2,8 @@
 
 A working implementation of the [AI Operations Situation Model](https://github.com/bVan566/ai-operations-situation-model). Operational events are classified into `NOW`, `NEXT`, `WAITING`, `DECISIONS` or `WATCHING`. Each item gets an owner, an authority level and a terminal condition. Deterministic code decides whether an action may run, executes it against an external service, and reconciles when the two systems disagree. A Failure Lab in the UI lets you break it on purpose.
 
+**Watch the 60-second demo:** https://youtu.be/GJPaSocJnpc
+
 **No API key is needed.** The app, tests, evaluations and Failure Lab all run on the deterministic rules classifier. Claude-assisted classification is an optional add-on that switches on when you supply your own key.
 
 ## The problem
