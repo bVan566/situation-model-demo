@@ -1,5 +1,31 @@
 # Situation Model
 
+**How do you make sure an automated system knows what needs attention, what it's allowed to do, and whether a task actually succeeded?** This is a working answer you can run, and try to break.
+
+<img src="docs/media/situation-model-failure-lab.gif" alt="The Failure Lab in action: an urgent refund is blocked because it hasn't been approved, a person approves it, it runs once and closes; a repeat attempt is blocked as a duplicate; a stale item is reconciled against the outside system" width="100%">
+
+<sub>Real capture of the Failure Lab, running locally with no API key. Prefer video? <a href="https://youtu.be/GJPaSocJnpc">Watch the 60-second demo</a>.</sub>
+
+| | |
+| --- | --- |
+| **What is it?** | A small operations board that takes incoming events ("a customer was charged twice and wants a refund") and sorts them into **NOW**, **NEXT**, **WAITING**, **DECISIONS** or **WATCHING**, each with an owner and a clear definition of done. |
+| **Why build it?** | Knowing something should happen isn't permission to make it happen. An urgent refund still needs a person's OK. And when an outside system does the work but the tracker never hears back, someone retries, and the customer gets refunded twice. |
+| **What does it do?** | **Identifies** what each event is. **Routes** it with a fixed authority level: run automatically, needs approval, or human only. **Verifies** the result with the outside system before closing anything. **Reconciles** when the two disagree, and blocks duplicates. |
+| **Can I see it?** | Yes: the Failure Lab above, the [video demo](https://youtu.be/GJPaSocJnpc), or run it locally (see [Run it](#run-it)). |
+| **Status** | Working demo. 52 automated tests; 0 failed items across three seeded 1,000-item control-path runs. Classification is the weaker part (72.5% on held-out events), and the [evaluation](#evaluation) says exactly what was and wasn't measured. |
+| **Learn more** | [Architecture](#architecture) · [Failure Lab](#failure-lab) · [Evaluation](#evaluation) · [Design rationale](https://github.com/bVan566/ai-operations-situation-model) |
+
+<table>
+<tr>
+<td width="50%"><img src="docs/media/authority-blocked.png" alt="An urgent refund in NOW is blocked: 'BLOCKED (authority): requires approval for issue_refund'"><br><sub>Urgent, but not approved: execution is blocked.</sub></td>
+<td width="50%"><img src="docs/media/approved-and-closed.png" alt="After approval the refund runs once, the dispatch service confirms it, and the item moves to CLOSED with one side effect"><br><sub>Approved, run once, verified, closed.</sub></td>
+</tr>
+</table>
+
+---
+
+## In technical terms
+
 A working implementation of the [AI Operations Situation Model](https://github.com/bVan566/ai-operations-situation-model). Operational events are classified into `NOW`, `NEXT`, `WAITING`, `DECISIONS` or `WATCHING`. Each item gets an owner, an authority level and a terminal condition. Deterministic code decides whether an action may run, executes it against an external service, and reconciles when the two systems disagree. A Failure Lab in the UI lets you break it on purpose.
 
 **Watch the 60-second demo:** https://youtu.be/GJPaSocJnpc
